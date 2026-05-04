@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wings Forward — Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'DM Sans',sans-serif;max-width:760px;margin:0 auto;padding:40px 28px;background:#f8f9fc;color:#1a2540;line-height:1.7;}
+  h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:#090F1E;margin-bottom:4px;}
+  .subtitle{color:#6B7FA3;font-size:15px;margin-bottom:40px;}
+  h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin:40px 0 10px;color:#090F1E;display:flex;align-items:center;gap:10px;}
+  .step-num{background:#FFDE00;color:#090F1E;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+  p{margin-bottom:12px;font-size:15px;}
+  .box{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin:14px 0;}
+  .cmd{background:#090F1E;color:#7DC4FF;border-radius:8px;padding:12px 18px;font-family:monospace;font-size:14px;margin:10px 0;display:block;word-break:break-all;}
+  .tip{background:#fffbeb;border-left:4px solid #FFDE00;padding:14px 18px;border-radius:0 8px 8px 0;font-size:14px;margin:14px 0;}
+  .green{background:#f0fdf4;border-left:4px solid #22C97A;padding:14px 18px;border-radius:0 8px 8px 0;font-size:14px;margin:14px 0;}
+  a{color:#4B9FE1;text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .cost{display:inline-block;background:#f0fdf4;border:1px solid #22C97A;color:#15803d;border-radius:100px;padding:2px 12px;font-size:13px;font-weight:500;margin-left:8px;}
+  .free{display:inline-block;background:#eff6ff;border:1px solid #4B9FE1;color:#1d4ed8;border-radius:100px;padding:2px 12px;font-size:13px;font-weight:500;margin-left:8px;}
+  hr{border:none;border-top:1px solid #e2e8f0;margin:40px 0;}
+  ul{padding-left:20px;} li{margin-bottom:6px;font-size:15px;}
+  .big-check{font-size:18px;margin-right:6px;}
+</style>
+</head>
+<body>
+
+<h1>✈️ Wings Forward — Setup Guide</h1>
+<p class="subtitle">Complete step-by-step instructions. No technical experience needed. Takes about 20 minutes.</p>
+
+<hr>
+
+<h2><span class="step-num">0</span> What You'll Need <span class="free">All Free</span></h2>
+<div class="box">
+  <ul>
+    <li>✅ A computer (Windows or Mac)</li>
+    <li>✅ Internet connection</li>
+    <li>✅ The 3 files I gave you (<code>server.js</code>, <code>public/index.html</code>, <code>.env</code>, <code>package.json</code>)</li>
+    <li>✅ ~20 minutes</li>
+  </ul>
+  <p style="margin-top:10px;"><strong>Cost: $0 to start.</strong> The API has a free tier (200 job searches/month). If you want to run it publicly online, hosting is ~$5–7/month — but first let's get it running on your computer.</p>
+</div>
+
+<hr>
+
+<h2><span class="step-num">1</span> Install Node.js on Your Computer <span class="free">Free · 5 min</span></h2>
+<div class="box">
+  <p>Node.js is what runs the code behind the dashboard. Think of it like installing an app.</p>
+  <ol>
+    <li>Go to <a href="https://nodejs.org" target="_blank"><strong>nodejs.org</strong></a></li>
+    <li>Click the big green button that says <strong>"LTS" (Recommended)</strong></li>
+    <li>Download and run the installer — just click Next → Next → Install</li>
+    <li>When done, it will say "Node.js was successfully installed"</li>
+  </ol>
+  <div class="tip">💡 <strong>To verify it worked:</strong> Press Windows key + R, type <code>cmd</code>, press Enter. Type <code>node --version</code> and press Enter. You should see something like <code>v20.x.x</code></div>
+</div>
+
+<hr>
+
+<h2><span class="step-num">2</span> Get Your Free API Key <span class="free">Free · 5 min</span></h2>
+<div class="box">
+  <p>This is what allows the dashboard to pull real live job listings. We use a service called <strong>RapidAPI + JSearch</strong>.</p>
+  <ol>
+    <li>Go to <a href="https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch" target="_blank"><strong>rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch</strong></a></li>
+    <li>Click <strong>"Sign Up"</strong> (top right) — use your email, it's free</li>
+    <li>After signing in, scroll down and click <strong>"Subscribe to Test"</strong> → choose the <strong>FREE plan</strong> (200 requests/month)</li>
+    <li>Once subscribed, look on the right side of the page — you will see a box labeled <strong>"X-RapidAPI-Key"</strong> with a long string of letters and numbers</li>
+    <li>Copy that entire key</li>
+  </ol>
+  <div class="tip">💡 The free plan gives you 200 searches per month. That's plenty for personal use. If you want to run it for thousands of people, a paid plan is ~$10/month.</div>
+</div>
+
+<hr>
+
+<h2><span class="step-num">3</span> Set Up Your Project Folder <span class="free">5 min</span></h2>
+<div class="box">
+  <ol>
+    <li>Create a new folder on your Desktop called <strong>wings-forward</strong></li>
+    <li>Inside it, create another folder called <strong>public</strong></li>
+    <li>Copy the files like this:
+      <ul style="margin-top:8px;">
+        <li><code>server.js</code> → goes in <strong>wings-forward/</strong></li>
+        <li><code>package.json</code> → goes in <strong>wings-forward/</strong></li>
+        <li><code>.env</code> → goes in <strong>wings-forward/</strong></li>
+        <li><code>index.html</code> → goes in <strong>wings-forward/public/</strong></li>
+      </ul>
+    </li>
+  </ol>
+  <div class="tip">💡 The <code>.env</code> file may be hidden on your computer because it starts with a dot. Make sure hidden files are visible, or just create it manually in Notepad.</div>
+</div>
+
+<hr>
+
+<h2><span class="step-num">4</span> Add Your API Key to the .env File <span class="free">2 min</span></h2>
+<div class="box">
+  <p>Open the <code>.env</code> file in Notepad (right-click → Open with → Notepad). You'll see:</p>
+  <code class="cmd">RAPIDAPI_KEY=PASTE_YOUR_KEY_HERE</code>
+  <p>Replace <code>PASTE_YOUR_KEY_HERE</code> with the key you copied in Step 2. Save the file.</p>
+  <div class="green">✅ Example of what it should look like:<br>
+  <code>RAPIDAPI_KEY=abc123xyz789youractualkey...</code></div>
+</div>
+
+<hr>
+
+<h2><span class="step-num">5</span> Install & Run the Dashboard <span class="free">3 min</span></h2>
+<div class="box">
+  <p><strong>Open your Command Prompt (Windows) or Terminal (Mac):</strong></p>
+  <ul>
+    <li><strong>Windows:</strong> Press Windows key + R → type <code>cmd</code> → press Enter</li>
+    <li><strong>Mac:</strong> Press Cmd + Space → type <code>terminal</code> → press Enter</li>
+  </ul>
+
+  <p style="margin-top:16px;"><strong>Step A — Navigate to your folder:</strong></p>
+  <code class="cmd">cd Desktop/wings-forward</code>
+
+  <p style="margin-top:16px;"><strong>Step B — Install required packages (do this only once):</strong></p>
+  <code class="cmd">npm install</code>
+  <p>Wait for it to finish. You'll see a lot of text scroll by — that's normal.</p>
+
+  <p style="margin-top:16px;"><strong>Step C — Start the dashboard:</strong></p>
+  <code class="cmd">npm start</code>
+
+  <p>You'll see this message:</p>
+  <code class="cmd">✈️  Wings Forward server running at http://localhost:3000</code>
+
+  <p style="margin-top:16px;"><strong>Step D — Open your browser and go to:</strong></p>
+  <code class="cmd">http://localhost:3000</code>
+
+  <div class="green">🎉 <strong>The dashboard is live on your computer!</strong> Real job listings will load within a few seconds.</div>
+</div>
+
+<hr>
+
+<h2><span class="step-num">6</span> Put It Online So Anyone Can Access It <span class="cost">~$0–7/month</span></h2>
+<div class="box">
+  <p>Right now it only runs on your computer. To share it with Spirit employees, you need to host it online. The easiest and cheapest option is <strong>Railway.app</strong>.</p>
+
+  <ol>
+    <li>Go to <a href="https://railway.app" target="_blank"><strong>railway.app</strong></a> and sign up (free)</li>
+    <li>Click <strong>"New Project"</strong> → <strong>"Deploy from GitHub"</strong></li>
+    <li>First, upload your folder to GitHub (free):
+      <ul>
+        <li>Go to <a href="https://github.com" target="_blank">github.com</a>, sign up, click <strong>New Repository</strong></li>
+        <li>Name it <code>wings-forward</code>, set to Public, click Create</li>
+        <li>Upload all your files by dragging them in</li>
+      </ul>
+    </li>
+    <li>Back in Railway, connect your GitHub account and select the <code>wings-forward</code> repo</li>
+    <li>In Railway's settings, add your environment variable:<br>
+      Key: <code>RAPIDAPI_KEY</code> → Value: your API key</li>
+    <li>Click <strong>Deploy</strong> — Railway gives you a free URL like <code>wings-forward.railway.app</code></li>
+  </ol>
+
+  <div class="tip">💡 <strong>Do you need a domain name?</strong> No! Railway gives you a free URL. If you want a custom one like <code>wingsforward.org</code>, that costs ~$12/year from <a href="https://namecheap.com">Namecheap</a> — but it's optional.</div>
+</div>
+
+<hr>
+
+<h2>🗂 Your Final File Structure</h2>
+<div class="box">
+<pre style="font-family:monospace;font-size:14px;line-height:1.8;">
+wings-forward/
+├── server.js          ← The engine (backend)
+├── package.json       ← Package list
+├── .env               ← Your secret API key (never share this)
+└── public/
+    └── index.html     ← The dashboard people see
+</pre>
+</div>
+
+<hr>
+
+<h2>❓ Troubleshooting</h2>
+<div class="box">
+  <p><strong>Dashboard shows "Could not load jobs"</strong><br>→ Check your .env file — make sure the API key is correct with no extra spaces.</p>
+  <p style="margin-top:10px;"><strong>"npm: command not found"</strong><br>→ Node.js didn't install correctly. Repeat Step 1 and restart your computer.</p>
+  <p style="margin-top:10px;"><strong>"Cannot find module"</strong><br>→ You forgot to run <code>npm install</code>. Run it again.</p>
+  <p style="margin-top:10px;"><strong>Port 3000 already in use</strong><br>→ Change <code>PORT=3000</code> to <code>PORT=3001</code> in your .env file and visit <code>http://localhost:3001</code></p>
+</div>
+
+<hr>
+
+<div class="green" style="font-size:15px;border-radius:12px;padding:20px 24px;">
+  <strong>🎉 You're all set!</strong><br><br>
+  Once running, the dashboard automatically pulls real airline job listings every time someone visits. Spirit employees can select their role, browse matches, and click directly to apply at any airline — all in one place.<br><br>
+  Share the URL with your network and let the community know it exists.
+</div>
+
+</body>
+</html>
