@@ -418,7 +418,7 @@ async function loadAirlineDirectory() {
     const grid = document.getElementById('dirGrid');
     grid.innerHTML = data.map(a => `
       <a href="${a.url}" target="_blank" rel="noopener" class="dir-card">
-        <span class="dir-emoji">${a.emoji}</span>
+        <span class="dir-emoji">${✈}</span>
         <span class="dir-name">${a.name}</span>
         <span class="dir-arrow">→</span>
       </a>
