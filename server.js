@@ -135,6 +135,6 @@ const AIRLINE_DIRECTORY = [
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-console.log(\n✈️  Wings Forward server running at http://localhost:${PORT});
-console.log(`   Powered by Jooble — pulling from 1000+ job sites\n`);
+console.log("Wings Forward server running at http://localhost:" + PORT);
+console.log("Powered by Jooble — pulling from 1000+ job sites");
 });
