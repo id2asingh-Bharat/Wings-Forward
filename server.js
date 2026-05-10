@@ -42,7 +42,7 @@ ResultOnPage: 20
 })
 });
 
-
+```
 var data = await response.json();
 
 if (!data.jobs) {
@@ -68,7 +68,6 @@ var jobs = data.jobs.map(function(job) {
     salary: job.salary || null,
     posted: formatDate(job.updated),
     applyUrl: job.link,
-    description: (job.snippet || "").slice(0, 300) + "...",
     isAirline: AIRLINES.some(function(a) {
       return (job.company || "").toLowerCase().indexOf(a) !== -1;
     }),
@@ -81,9 +80,9 @@ jobs.sort(function(a, b) {
 });
 
 res.json({ jobs: jobs, total: jobs.length });
+```
 
-
-} catch (err) {
+} catch(err) {
 console.error(“Error:”, err);
 res.status(500).json({ error: err.message });
 }
@@ -91,24 +90,24 @@ res.status(500).json({ error: err.message });
 
 app.get(”/api/airlines”, function(req, res) {
 res.json([
-{ name: “American Airlines”,  url: “https://jobs.aa.com/search-jobs”,               emoji: “plane” },
-{ name: “Delta Air Lines”,    url: “https://delta.avature.net/en_US/careers”,       emoji: “plane” },
-{ name: “United Airlines”,    url: “https://careers.united.com/us/en”,              emoji: “plane” },
-{ name: “Southwest Airlines”, url: “https://careers.southwestairlines.com/careers”, emoji: “plane” },
-{ name: “JetBlue”,            url: “https://careers.jetblue.com”,                   emoji: “plane” },
-{ name: “Alaska Airlines”,    url: “https://jobs.alaskaair.com”,                    emoji: “plane” },
-{ name: “Frontier Airlines”,  url: “https://jobs.flyfrontier.com”,                  emoji: “plane” },
-{ name: “Allegiant Air”,      url: “https://jobs.allegiantair.com”,                 emoji: “plane” },
-{ name: “Avelo Airlines”,     url: “https://www.aveloair.com/careers”,              emoji: “plane” },
-{ name: “Sun Country”,        url: “https://www.suncountry.com/about/careers”,      emoji: “plane” },
-{ name: “Hawaiian Airlines”,  url: “https://careers.hawaiianairlines.com”,          emoji: “plane” },
-{ name: “Breeze Airways”,     url: “https://www.flybreeze.com/careers”,             emoji: “plane” },
-{ name: “SkyWest Airlines”,   url: “https://www.skywest.com/about-skywest/careers”, emoji: “plane” },
-{ name: “Republic Airways”,   url: “https://www.republicairways.com/careers”,       emoji: “plane” },
-{ name: “Envoy Air”,          url: “https://envoyair.com/careers”,                  emoji: “plane” },
-{ name: “PSA Airlines”,       url: “https://www.psaairlines.com/careers”,           emoji: “plane” },
-{ name: “Piedmont Airlines”,  url: “https://www.piedmont-airlines.com/careers”,     emoji: “plane” },
-{ name: “GoJet Airlines”,     url: “https://www.gojetairlines.com/careers”,         emoji: “plane” }
+{ name: “American Airlines”, url: “https://jobs.aa.com/search-jobs” },
+{ name: “Delta Air Lines”, url: “https://delta.avature.net/en_US/careers” },
+{ name: “United Airlines”, url: “https://careers.united.com/us/en” },
+{ name: “Southwest Airlines”, url: “https://careers.southwestairlines.com/careers” },
+{ name: “JetBlue”, url: “https://careers.jetblue.com” },
+{ name: “Alaska Airlines”, url: “https://jobs.alaskaair.com” },
+{ name: “Frontier Airlines”, url: “https://jobs.flyfrontier.com” },
+{ name: “Allegiant Air”, url: “https://jobs.allegiantair.com” },
+{ name: “Avelo Airlines”, url: “https://www.aveloair.com/careers” },
+{ name: “Sun Country”, url: “https://www.suncountry.com/about/careers” },
+{ name: “Hawaiian Airlines”, url: “https://careers.hawaiianairlines.com” },
+{ name: “Breeze Airways”, url: “https://www.flybreeze.com/careers” },
+{ name: “SkyWest Airlines”, url: “https://www.skywest.com/about-skywest/careers” },
+{ name: “Republic Airways”, url: “https://www.republicairways.com/careers” },
+{ name: “Envoy Air”, url: “https://envoyair.com/careers” },
+{ name: “PSA Airlines”, url: “https://www.psaairlines.com/careers” },
+{ name: “Piedmont Airlines”, url: “https://www.piedmont-airlines.com/careers” },
+{ name: “GoJet Airlines”, url: “https://www.gojetairlines.com/careers” }
 ]);
 });
 
