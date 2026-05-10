@@ -1,473 +1,255 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wings Forward — Spirit Employee Transition Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>Wings Forward - Spirit Employee Transition Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --yellow:#FFDE00; --navy:#090F1E; --navy-mid:#101C35;
-  --navy-card:#131F38; --sky:#4B9FE1; --sky-light:#7DC4FF;
-  --white:#F0F4FF; --muted:#6B7FA3; --green:#22C97A;
-  --red:#FF5C5C; --border:rgba(75,159,225,0.13);
-  --border-hover:rgba(75,159,225,0.35);
-}
+:root{--yellow:#FFDE00;--navy:#090F1E;--card:#131F38;--sky:#4B9FE1;--white:#F0F4FF;--muted:#6B7FA3;--green:#22C97A;--border:rgba(75,159,225,0.13);}
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
-
-/* BG TEXTURE */
-body::before{content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 70% 50% at 85% 5%,rgba(75,159,225,0.1) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 40% at 5% 90%,rgba(255,222,0,0.05) 0%,transparent 50%),
-    radial-gradient(ellipse 30% 30% at 50% 50%,rgba(18,36,65,0.8) 0%,transparent 100%);
-  pointer-events:none;z-index:0;}
-
-.wrap{max-width:1280px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
-
-/* ── HEADER ── */
-header{padding:22px 0;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(9,15,30,0.92);backdrop-filter:blur(16px);z-index:100;}
+body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;min-height:100vh;}
+.wrap{max-width:1280px;margin:0 auto;padding:0 28px;}
+header{padding:22px 0;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(9,15,30,0.95);z-index:100;}
 .hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
 .logo{display:flex;align-items:center;gap:12px;}
-.logo-mark{width:40px;height:40px;background:var(--yellow);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.logo-text .brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.5px;line-height:1;}
-.logo-text .sub{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;}
+.logo-mark{width:40px;height:40px;background:var(--yellow);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#000;}
+.brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.sub{font-size:11px;color:var(--muted);text-transform:uppercase;}
 .hdr-stats{display:flex;gap:28px;}
-.hstat .n{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--yellow);line-height:1;}
-.hstat .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
-.live-dot{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--green);font-weight:500;}
-.live-dot::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,201,122,.5)}50%{opacity:.5;box-shadow:0 0 0 6px transparent}}
-
-/* ── HERO ── */
+.hstat .n{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--yellow);}
+.hstat .l{font-size:10px;color:var(--muted);text-transform:uppercase;}
+.live{color:#22C97A;font-size:12px;}
 .hero{padding:52px 0 40px;}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,222,0,.1);border:1px solid rgba(255,222,0,.25);border-radi:100px;padding:6px 16px;font-size:12px;font-weight:500;color:var(--yellow);margin-bottom:20px;letter-spacing:.3px;}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(30px,5.5vw,58px);font-weight:800;line-height:1.06;letter-spacing:-1.5px;margin-bottom:14px;}
-.hero h1 em{color:var(--yellow);font-style:normal;}
-.hero p{font-size:16px;color:var(--muted);max-width:540px;line-height:1.65;font-weight:300;}
-
-/* ── ROLE PILLS ── */
-.role-section{padding:32px 0 0;}
-.sec-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.roles-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
-.roles-scroll::-webkit-scrollbar{display:none;}
-.role-pill{flex-shrink:0;background:var(--navy-card);border:1px solid var(--border);border-radi:100px;padding:10px 20px;cursor:pointer;transition:all .2s;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:7px;}
-.role-pill:hover{border-color:var(--sky);color:var(--sky-light);}
-.role-pill.active{background:var(--yellow);border-color:var(--yellow);color:var(--navy);font-weight:700;}
-.role-pill .ct{background:rgba(0,0,0,.15);border-radi:100px;padding:1px 7px;font-size:11px;}
-
-/* ── SEARCH + FILTERS ── */
+.hero h1{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;line-height:1.1;margin-bottom:14px;}
+.hero h1 span{color:var(--yellow);}
+.hero p{font-size:16px;color:var(--muted);max-width:540px;line-height:1.65;}
+.sec-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:14px;}
+.roles{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.role-btn{background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;}
+.role-btn.active{background:var(--yellow);border-color:var(--yellow);color:#000;font-weight:700;}
 .controls{display:flex;gap:12px;align-items:center;padding:24px 0;flex-wrap:wrap;border-bottom:1px solid var(--border);}
-.searchbox{flex:1;min-width:220px;background:var(--navy-card);border:1px solid var(--border);border-radi:100px;padding:10px 20px;display:flex;align-items:center;gap:10px;transition:border-color .2s;}
-.searchbox:foc-within{border-color:var(--sky);}
-.searchbox input{background:none;border:none;outline:none;color:var(--white);font-size:14px;font-family:'DM Sans',sans-serif;width:100%;}
+.searchbox{flex:1;min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 20px;display:flex;align-items:center;gap:10px;}
+.searchbox input{background:none;border:none;outline:none;color:var(--white);font-size:14px;width:100%;}
 .searchbox input::placeholder{color:var(--muted);}
-.location-select{background:var(--navy-card);border:1px solid var(--border);border-radi:100px;padding:10px 20px;color:var(--white);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;}
-.location-select option{background:var(--navy-mid);}
-.filter-chip{background:var(--navy-card);border:1px solid var(--border);color:var(--muted);border-radi:100px;padding:9px 18px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;font-weight:500;}
-.filter-chip:hover{border-color:var(--sky);color:var(--sky-light);}
-.filter-chip.on{background:rgba(75,159,225,.15);border-color:var(--sky);color:var(--sky-light);}
-
-/* ── RESULTS HEADER ── */
-.results-hdr{display:flex;align-items:center;jtify-content:space-between;padding:24px 0 16px;flex-wrap:wrap;gap:12px;}
+.loc-select{background:var(--card);border:1px solid var(--border);border-radius:100px;padding:10px 20px;color:var(--white);font-size:13px;outline:none;cursor:pointer;}
+.filter-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:100px;padding:9px 18px;font-size:12px;cursor:pointer;font-weight:500;}
+.filter-btn.on{background:rgba(75,159,225,.15);border-color:var(--sky);color:var(--sky);}
+.results-hdr{display:flex;align-items:center;justify-content:space-between;padding:24px 0 16px;}
 .results-count{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
 .results-count span{color:var(--yellow);}
-.sort-select{background:var(--navy-card);border:1px solid var(--border);color:var(--white);border-radi:8px;padding:8px 14px;font-size:12px;font-family:'DM Sans',sans-serif;outline:none;}
-
-/* ── GRID ── */
-.jobs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;padding-bottom:40px;}
-
-/* ── JOB CARD ── */
-.job-card{background:var(--navy-card);border:1px solid var(--border);border-radi:18px;padding:22px;transition:all .25s;position:relative;overflow:hidden;animation:fadeUp .4s ease both;}
-.job-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sky),var(--sky-light));opacity:0;transition:opacity .2s;}
-.job-card:hover{border-color:var(--border-hover);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
-.job-card:hover::after{opacity:1;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-.card-top{display:flex;jtify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px;}
-.airline-row{display:flex;align-items:center;gap:10px;}
-.airline-logo{width:42px;height:42px;border-radi:10px;display:flex;align-items:center;jtify-content:center;font-size:18px;flex-shrink:0;overflow:hidden;background:var(--navy-mid);}
-.airline-logo img{width:100%;height:100%;object-fit:contain;padding:4px;}
-.aname{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;line-height:1.2;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;padding-bottom:40px;}
+.job-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;transition:all .25s;}
+.job-card:hover{border-color:rgba(75,159,225,0.4);transform:translateY(-3px);}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:10px;}
+.airline-info{display:flex;align-items:center;gap:10px;}
+.airline-icon{width:42px;height:42px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;color:var(--sky);}
+.aname{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
 .atype{font-size:11px;color:var(--muted);}
-
-.match-pill{background:rgba(34,201,122,.12);border:1px solid rgba(34,201,122,.25);color:var(--green);font-size:11px;font-weight:600;padding:4px 11px;border-radi:100px;white-space:nowrap;display:flex;align-items:center;gap:4px;flex-shrink:0;}
-
-.job-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;line-height:1.25;margin-bottom:10px;}
+.match-badge{background:rgba(34,201,122,.12);border:1px solid rgba(34,201,122,.25);color:#22C97A;font-size:11px;font-weight:600;padding:4px 11px;border-radius:100px;}
+.job-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px;}
 .job-meta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
-.meta{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);}
-
+.meta{font-size:12px;color:var(--muted);}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
-.tag{background:rgba(75,159,225,.08);border:1px solid rgba(75,159,225,.18);color:var(--sky-light);font-size:11px;padding:3px 10px;border-radi:100px;}
-.tag.hi{background:rgba(34,201,122,.08);border-color:rgba(34,201,122,.2);color:var(--green);}
-
-.card-foot{display:flex;jtify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);gap:10px;}
-.posted-time{font-size:11px;color:var(--muted);}
-.apply-btn{display:inline-flex;align-items:center;gap:6px;background:var(--sky);color:var(--navy);font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:9px 18px;border-radi:100px;text-decoration:none;transition:all .2s;letter-spacing:.3px;white-space:nowrap;}
-.apply-btn:hover{background:var(--sky-light);transform:scale(1.04);}
-.apply-btn svg{width:11px;height:11px;}
-
-/* ── LOADING ── */
-.loading{display:flex;flex-direction:column;align-items:center;jtify-content:center;padding:80px 20px;gap:16px;}
-.spinner{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--sky);border-radi:50%;animation:spin 0.8s linear infinite;}
+.tag{background:rgba(75,159,225,.08);border:1px solid rgba(75,159,225,.18);color:var(--sky);font-size:11px;padding:3px 10px;border-radius:100px;}
+.card-foot{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);}
+.posted{font-size:11px;color:var(--muted);}
+.apply-btn{background:var(--sky);color:#000;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;}
+.loading{text-align:center;padding:80px 20px;}
+.spinner{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--sky);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading p{color:var(--muted);font-size:14px;}
-
-/* ── ERROR ── */
-.error-box{background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.2);border-radi:12px;padding:20px 24px;color:var(--red);font-size:14px;margin:20px 0;}
-
-/* ── AIRLINE DIRECTORY ── */
-.directory{padding:32px 0;}
-.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
-.dir-card{background:var(--navy-card);border:1px solid var(--border);border-radi:12px;padding:14px 16px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:all .2s;color:var(--white);}
-.dir-card:hover{border-color:var(--border-hover);transform:translateY(-2px);}
-.dir-emoji{font-size:20px;width:32px;text-align:center;}
-.dir-name{font-size:13px;font-weight:500;line-height:1.3;}
-.dir-arrow{margin-left:auto;color:var(--muted);font-size:16px;}
-
-/* ── SUPPORT STRIP ── */
-.strip{background:linear-gradient(135deg,rgba(255,222,0,.08),rgba(75,159,225,.06));border:1px solid rgba(255,222,0,.15);border-radi:18px;padding:26px 30px;display:flex;align-items:center;jtify-content:space-between;gap:20px;margin:8px 0 32px;flex-wrap:wrap;}
+.error{background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.2);border-radius:12px;padding:20px;color:#FF5C5C;margin:20px 0;}
+.dir-section{padding:32px 0;}
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
+.dir-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;display:flex;align-items:center;justify-content:space-between;color:var(--white);}
+.dir-card:hover{border-color:rgba(75,159,225,0.4);}
+.dir-name{font-size:13px;font-weight:500;}
+.strip{background:rgba(255,222,0,.06);border:1px solid rgba(255,222,0,.15);border-radius:18px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:8px 0 32px;flex-wrap:wrap;}
 .strip h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:4px;}
 .strip p{font-size:13px;color:var(--muted);}
 .strip-links{display:flex;gap:10px;flex-wrap:wrap;}
-.strip-link{background:var(--navy-mid);border:1px solid var(--border);color:var(--white);font-size:12px;padding:9px 16px;border-radi:100px;text-decoration:none;transition:all .2s;font-weight:500;}
-.strip-link:hover{border-color:var(--sky);color:var(--sky-light);}
-
+.strip-link{background:var(--navy);border:1px solid var(--border);color:var(--white);font-size:12px;padding:9px 16px;border-radius:100px;text-decoration:none;}
 footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:12px;color:var(--muted);}
-footer a{color:var(--sky);text-decoration:none;}
-
-@media(max-width:640px){
-  .hdr-stats{display:none;}
-  .jobs-grid{grid-template-columns:1fr;}
-  .strip{flex-direction:column;}
-}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="wrap">
-    <div class="hdr">
-      <div class="logo">
-        <div class="logo-mark">✈️</div>
-        <div class="logo-text">
-          <div class="brand">Wings Forward</div>
-          <div class="sub">Spirit Employee Transition Hub</div>
-        </div>
-      </div>
-      <div class="hdr-stats">
-        <div class="hstat"><div class="n" id="totalJobs">—</div><div class="l">Live Openings</div></div>
-        <div class="hstat"><div class="n">18</div><div class="l">Airlines Hiring</div></div>
-        <div class="hstat"><div class="n">15K+</div><div class="l">Spirit Employees</div></div>
-      </div>
-      <div class="live-dot">Live · Updated now</div>
-    </div>
-  </div>
+<div class="wrap">
+<div class="hdr">
+<div class="logo">
+<div class="logo-mark">W</div>
+<div>
+<div class="brand">Wings Forward</div>
+<div class="sub">Spirit Employee Transition Hub</div>
+</div>
+</div>
+<div class="hdr-stats">
+<div class="hstat"><div class="n" id="totalJobs">--</div><div class="l">Live Openings</div></div>
+<div class="hstat"><div class="n">18</div><div class="l">Airlines Hiring</div></div>
+<div class="hstat"><div class="n">15K+</div><div class="l">Spirit Employees</div></div>
+</div>
+<div class="live">Live - Updated now</div>
+</div>
+</div>
 </header>
-
 <main>
 <div class="wrap">
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-eyebrow">✈️ Real-Time Airline Job Board</div>
-    <h1>Your skills have<br><em>a next destination.</em></h1>
-    <p>Live openings from 18+ airlines, matched to Spirit roles. Every card links directly to the airline's official application. You are not starting over — you are transferring your expertise.</p>
-  </div>
-
-  <!-- ROLE PILLS -->
-  <div class="role-section">
-    <div class="sec-label">Select Your Spirit Role</div>
-    <div class="roles-scroll" id="rolePills">
-      <div class="role-pill active" data-role="flight-attendant" onclick="selectRole(this)">✈️ Flight Attendant</div>
-      <div class="role-pill" data-role="pilot" onclick="selectRole(this)">🧑‍✈️ Pilot / First Officer</div>
-      <div class="role-pill" data-role="ramp-agent" onclick="selectRole(this)">🛄 Ramp Agent</div>
-      <div class="role-pill" data-role="mechanic" onclick="selectRole(this)">🔧 A&P Mechanic</div>
-      <div class="role-pill" data-role="ctomer-service" onclick="selectRole(this)">🎧 Ctomer Service</div>
-      <div class="role-pill" data-role="gate-agent" onclick="selectRole(this)">🗂️ Gate Agent</div>
-      <div class="role-pill" data-role="cargo" onclick="selectRole(this)">📦 Cargo Handler</div>
-      <div class="role-pill" data-role="corporate" onclick="selectRole(this)">💼 Corporate / HQ</div>
-    </div>
-  </div>
-
-  <!-- SEARCH + FILTERS -->
-  <div class="controls">
-    <div class="searchbox">
-      <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="#6B7FA3" stroke-width="2"><circle cx="9" cy="9" r="7"/><path d="m16 16-3.5-3.5"/></svg>
-      <input type="text" id="searchInput" placeholder="Search airline, city, or keyword…" oninput="debounceSearch()"/>
-    </div>
-    <select class="location-select" id="locationSelect" onchange="loadJobs()">
-      <option value="United States">All US</option>
-      <option value="Florida">Florida</option>
-      <option value="Texas">Texas</option>
-      <option value="New York">New York</option>
-      <option value="California">California</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Illinois">Illinois</option>
-      <option value="Nevada">Nevada</option>
-      <option value="Colorado">Colorado</option>
-    </select>
-    <button class="filter-chip" id="airlineOnly" onclick="toggleFilter(this)">✈️ Airlines Only</button>
-    <button class="filter-chip" id="fullTimeOnly" onclick="toggleFilter(this)">⏱ Full-Time</button>
-  </div>
-
-  <!-- RESULTS HEADER -->
-  <div class="results-hdr">
-    <div class="results-count">Showing <span id="countDisplay">…</span> positions</div>
-    <select class="sort-select" id="sortSelect" onchange="renderJobs()">
-      <option value="relevance">Sort: Best Match</option>
-      <option value="recent">Sort: Most Recent</option>
-      <option value="salary">Sort: Salary (High)</option>
-    </select>
-  </div>
-
-  <!-- JOB LISTINGS -->
-  <div class="jobs-grid" id="jobsGrid">
-    <div class="loading" style="grid-column:1/-1">
-      <div class="spinner"></div>
-      <p>Finding live openings for you…</p>
-    </div>
-  </div>
-
-  <!-- AIRLINE DIRECTORY -->
-  <div class="directory">
-    <div class="sec-label">Apply Directly — All Airline Career Portals</div>
-    <div class="dir-grid" id="dirGrid">
-      <!-- Populated by JS -->
-    </div>
-  </div>
-
-  <!-- SUPPORT STRIP -->
-  <div class="strip">
-    <div>
-      <h3>✊ You're not starting over. You're transferring.</h3>
-      <p>Resources specifically for Spirit employees — benefits info, WARN Act rights, and union support.</p>
-    </div>
-    <div class="strip-links">
-      <a href="https://www.dol.gov/agencies/eta/layoffs" target="_blank" class="strip-link">📋 WARN Act Rights</a>
-      <a href="https://www.unionplus.org" target="_blank" class="strip-link">✊ Union Resources</a>
-      <a href="https://avjobs.com" target="_blank" class="strip-link">✈️ AvJobs Board</a>
-      <a href="https://www.linkedin.com/jobs/airline-jobs" target="_blank" class="strip-link">🔗 LinkedIn Jobs</a>
-    </div>
-  </div>
-
+<div class="hero">
+<h1>Your skills have<br><span>a next destination.</span></h1>
+<p>Live openings from 18+ airlines matched to Spirit roles. Every card links directly to the airline official application. You are not starting over - you are transferring your expertise.</p>
+</div>
+<div class="sec-label">Select Your Spirit Role</div>
+<div class="roles" id="rolePills">
+<button class="role-btn active" data-role="flight-attendant" onclick="selectRole(this)">Flight Attendant</button>
+<button class="role-btn" data-role="pilot" onclick="selectRole(this)">Pilot / First Officer</button>
+<button class="role-btn" data-role="ramp-agent" onclick="selectRole(this)">Ramp Agent</button>
+<button class="role-btn" data-role="mechanic" onclick="selectRole(this)">A and P Mechanic</button>
+<button class="role-btn" data-role="customer-service" onclick="selectRole(this)">Customer Service</button>
+<button class="role-btn" data-role="gate-agent" onclick="selectRole(this)">Gate Agent</button>
+<button class="role-btn" data-role="cargo" onclick="selectRole(this)">Cargo Handler</button>
+<button class="role-btn" data-role="corporate" onclick="selectRole(this)">Corporate</button>
+</div>
+<div class="controls">
+<div class="searchbox">
+<input type="text" id="searchInput" placeholder="Search airline, city, or keyword..." oninput="debounceSearch()">
+</div>
+<select class="loc-select" id="locationSelect" onchange="loadJobs()">
+<option value="United States">All United States</option>
+<option value="Florida">Florida</option>
+<option value="Texas">Texas</option>
+<option value="New York">New York</option>
+<option value="California">California</option>
+<option value="Georgia">Georgia</option>
+<option value="Illinois">Illinois</option>
+<option value="Nevada">Nevada</option>
+<option value="Colorado">Colorado</option>
+<option value="Arizona">Arizona</option>
+<option value="Washington">Washington</option>
+<option value="North Carolina">North Carolina</option>
+<option value="Michigan">Michigan</option>
+</select>
+<button class="filter-btn" id="airlineOnly" onclick="toggleFilter(this)">Airlines Only</button>
+<button class="filter-btn" id="fullTimeOnly" onclick="toggleFilter(this)">Full-Time</button>
+</div>
+<div class="results-hdr">
+<div class="results-count">Showing <span id="countDisplay">...</span> positions</div>
+</div>
+<div class="grid" id="jobsGrid">
+<div class="loading" style="grid-column:1/-1">
+<div class="spinner"></div>
+<p style="color:var(--muted)">Finding live openings for you...</p>
+</div>
+</div>
+<div class="dir-section">
+<div class="sec-label">Apply Directly - All Airline Career Portals</div>
+<div class="dir-grid" id="dirGrid"></div>
+</div>
+<div class="strip">
+<div>
+<h3>You are not starting over. You are transferring.</h3>
+<p>Resources for Spirit employees - WARN Act rights and union support.</p>
+</div>
+<div class="strip-links">
+<a href="https://www.dol.gov/agencies/eta/layoffs" target="_blank" class="strip-link">WARN Act Rights</a>
+<a href="https://www.unionplus.org" target="_blank" class="strip-link">Union Resources</a>
+<a href="https://avjobs.com" target="_blank" class="strip-link">AvJobs</a>
+<a href="https://www.linkedin.com/jobs" target="_blank" class="strip-link">LinkedIn Jobs</a>
+</div>
+</div>
 </div>
 </main>
-
 <footer>
-  <div class="wrap">
-    Wings Forward — Community resource for Spirit Airlines employees &nbsp;·&nbsp; Jobs pulled live from airline career portals &nbsp;·&nbsp;
-    <a href="https://avjobs.com" target="_blank">AvJobs</a> &nbsp;·&nbsp;
-    <a href="https://careers.delta.com" target="_blank">Delta</a> &nbsp;·&nbsp;
-    <a href="https://jobs.aa.com" target="_blank">American</a>
-  </div>
+<div class="wrap">Wings Forward - Community resource for Spirit Airlines employees - Jobs pulled live from 1000+ job sites</div>
 </footer>
-
 <script>
-// ── State ──────────────────────────────────────────────────
-let allJobs = [];
-let currentRole = 'flight-attendant';
-let searchTimer = null;
+var allJobs = [];
+var currentRole = 'flight-attendant';
+var searchTimer = null;
 
-// ── On load ────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  loadAirlineDirectory();
-  loadJobs();
+document.addEventListener(‘DOMContentLoaded’, function() {
+loadAirlineDirectory();
+loadJobs();
 });
 
-// ── Fetch jobs from our backend ────────────────────────────
 async function loadJobs() {
-  const role     = currentRole;
-  const location = document.getElementById('locationSelect').value;
-
-  showLoading();
-
-  try {
-    const res  = await fetch(`/api/jobs?role=${role}&location=${encodeURIComponent(location)}`);
-    const data = await res.json();
-
-    if (data.error) throw new Error(data.error);
-
-    allJobs = data.jobs || [];
-    document.getElementById('totalJobs').textContent = allJobs.length + '+';
-    renderJobs();
-  } catch (err) {
-    showError(err.message);
-  }
+var role = currentRole;
+var location = document.getElementById(‘locationSelect’).value;
+document.getElementById(‘jobsGrid’).innerHTML = ‘<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings…</p></div>’;
+document.getElementById(‘countDisplay’).textContent = ‘…’;
+try {
+var res = await fetch(’/api/jobs?role=’ + role + ‘&location=’ + encodeURIComponent(location));
+var data = await res.json();
+if (data.error) throw new Error(data.error);
+allJobs = data.jobs || [];
+document.getElementById(‘totalJobs’).textContent = allJobs.length + ‘+’;
+renderJobs();
+} catch(err) {
+document.getElementById(‘jobsGrid’).innerHTML = ’<div class="error" style="grid-column:1/-1">Could not load jobs: ’ + err.message + ‘</div>’;
+}
 }
 
-// ── Render cards ───────────────────────────────────────────
 function renderJobs() {
-  const grid        = document.getElementById('jobsGrid');
-  const searchVal   = document.getElementById('searchInput').value.toLowerCase();
-  const airlineOnly = document.getElementById('airlineOnly').classList.contains('on');
-  const fullTime    = document.getElementById('fullTimeOnly').classList.contains('on');
-  const sort        = document.getElementById('sortSelect').value;
-
-  let jobs = [...allJobs];
-
-  // Filter
-  if (searchVal) {
-    jobs = jobs.filter(j =>
-      j.title.toLowerCase().includes(searchVal) ||
-      j.employer.toLowerCase().includes(searchVal) ||
-      j.location.toLowerCase().includes(searchVal)
-    );
-  }
-  if (airlineOnly)  jobs = jobs.filter(j => j.isAirline);
-  if (fullTime)     jobs = jobs.filter(j => j.type?.toLowerCase().includes('full'));
-
-  // Sort
-  if (sort === 'recent') {
-    // already ordered by recency from API
-  } else if (sort === 'salary') {
-    jobs.sort((a, b) => (b.salary ? 1 : 0) - (a.salary ? 1 : 0));
-  } else {
-    // relevance: airline first
-    jobs.sort((a, b) => (b.isAirline ? 1 : 0) - (a.isAirline ? 1 : 0));
-  }
-
-  document.getElementById('countDisplay').textContent = jobs.length;
-
-  if (jobs.length === 0) {
-    grid.innerHTML = `<div class="loading" style="grid-column:1/-1"><p style="color:var(--muted)">No matching jobs found. Try a different role or location.</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = jobs.map((job, i) => buildCard(job, i)).join('');
+var grid = document.getElementById(‘jobsGrid’);
+var s = document.getElementById(‘searchInput’).value.toLowerCase();
+var ao = document.getElementById(‘airlineOnly’).classList.contains(‘on’);
+var ft = document.getElementById(‘fullTimeOnly’).classList.contains(‘on’);
+var jobs = allJobs.slice();
+if (s) jobs = jobs.filter(function(j) { return (j.title + ’ ’ + j.employer + ’ ’ + (j.location||’’)).toLowerCase().indexOf(s) !== -1; });
+if (ao) jobs = jobs.filter(function(j) { return j.isAirline; });
+if (ft) jobs = jobs.filter(function(j) { return (j.type||’’).toLowerCase().indexOf(‘full’) !== -1; });
+document.getElementById(‘countDisplay’).textContent = jobs.length;
+if (!jobs.length) {
+grid.innerHTML = ‘<div class="loading" style="grid-column:1/-1"><p style="color:#6B7FA3">No matching jobs found.</p></div>’;
+return;
+}
+grid.innerHTML = jobs.map(function(job) {
+var match = job.isAirline ? ‘<span class="match-badge">Airline Match</span>’ : ‘’;
+var salary = job.salary ? ‘<span class="meta">’ + job.salary + ‘</span>’ : ‘’;
+return ‘<div class="job-card">’ +
+‘<div class="card-top">’ +
+‘<div class="airline-info">’ +
+‘<div class="airline-icon">A</div>’ +
+‘<div><div class="aname">’ + (job.employer||’’) + ‘</div><div class="atype">Airline / Aviation</div></div>’ +
+‘</div>’ + match + ‘</div>’ +
+‘<div class="job-title">’ + (job.title||’’) + ‘</div>’ +
+‘<div class="job-meta">’ +
+(job.location ? ‘<span class="meta">’ + job.location + ‘</span>’ : ‘’) +
+salary +
+‘<span class="meta">’ + (job.type||‘Full-time’) + ‘</span>’ +
+‘</div>’ +
+‘<div class="tags"><span class="tag">Aviation Experience</span><span class="tag">Airline Industry</span></div>’ +
+‘<div class="card-foot">’ +
+‘<span class="posted">’ + (job.posted||‘Recently’) + ‘</span>’ +
+‘<a href="' + (job.applyUrl||'#') + '" target="_blank" class="apply-btn">Apply Now</a>’ +
+‘</div></div>’;
+}).join(’’);
 }
 
-// ── Build card HTML ────────────────────────────────────────
-function buildCard(job, i) {
-  const logoHtml = job.logo
-    ? `<img src="${job.logo}" alt="${job.employer}" onerror="this.parentElement.textContent='✈️'"/>`
-    : '✈️';
-
-  const matchBadge = job.isAirline
-    ? `<div class="match-pill">✓ Airline Match</div>`
-    : '';
-
-  const salaryHtml = job.salary
-    ? `<div class="meta">💰 ${job.salary}</div>`
-    : '';
-
-  const tags = buildTags(job);
-
-  return `
-  <div class="job-card" style="animation-delay:${i * 0.05}s">
-    <div class="card-top">
-      <div class="airline-row">
-        <div class="airline-logo">${logoHtml}</div>
-        <div>
-          <div class="aname">${escHtml(job.employer)}</div>
-          <div class="atype">${job.isAirline ? 'Airline / Aviation' : 'Aviation Industry'}</div>
-        </div>
-      </div>
-      ${matchBadge}
-    </div>
-    <div class="job-title">${escHtml(job.title)}</div>
-    <div class="job-meta">
-      ${job.location ? `<div class="meta">📍 ${escHtml(job.location)}</div>` : ''}
-      ${salaryHtml}
-      <div class="meta">⏱ ${escHtml(job.type || 'Full-time')}</div>
-    </div>
-    <div class="tags">${tags}</div>
-    <div class="card-foot">
-      <div class="posted-time">🕐 ${job.posted}</div>
-      <a href="${escHtml(job.applyUrl)}" target="_blank" rel="noopener" class="apply-btn">
-        Apply Now
-        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M2 6h8M6 2l4 4-4 4"/>
-        </svg>
-      </a>
-    </div>
-  </div>`;
-}
-
-// ── Build skill tags based on job title ───────────────────
-function buildTags(job) {
-  const title = job.title.toLowerCase();
-  const map = [
-    [['flight attendant'],      ['FAA Safety Cert','Passenger Mgmt','Emergency Procedures']],
-    [['pilot','first officer','captain'], ['ATP Certificate','Type Rating','1500+ Hours']],
-    [['ramp','ground ops'],     ['Baggage Handling','Aircraft Marshaling','GSE Operation']],
-    [['mechanic','technician'], ['A&P License','Aircraft Maintenance','Safety Protocols']],
-    [['customer service'],      ['Res Systems','Ticketing','Disruption Handling']],
-    [['gate agent'],            ['Gate Operations','Boarding Mgmt','PSA']],
-    [['cargo'],                 ['Load Planning','Weight & Balance','Hazmat']],
-  ];
-
-  for (const [keys, tags] of map) {
-    if (keys.some(k => title.includes(k))) {
-      return tags.map((t, i) =>
-        `<span class="tag ${i === 0 ? 'hi' : ''}">${t}</span>`
-      ).join('');
-    }
-  }
-  return `<span class="tag">Aviation Experience</span><span class="tag">Airline Industry</span>`;
-}
-
-// ── Airline directory ──────────────────────────────────────
 async function loadAirlineDirectory() {
-  try {
-    const res  = await fetch('/api/airlines');
-    const data = await res.json();
-    const grid = document.getElementById('dirGrid');
-    grid.innerHTML = data.map(a => `
-      <a href="${a.url}" target="_blank" rel="noopener" class="dir-card">
-        <span class="dir-emoji">${✈}</span>
-        <span class="dir-name">${a.name}</span>
-        <span class="dir-arrow">→</span>
-      </a>
-    `).join('');
-  } catch(e) {
-    console.error('Directory error', e);
-  }
+try {
+var res = await fetch(’/api/airlines’);
+var data = await res.json();
+document.getElementById(‘dirGrid’).innerHTML = data.map(function(a) {
+return ‘<a href="' + a.url + '" target="_blank" class="dir-card"><span class="dir-name">’ + a.name + ‘</span><span>→</span></a>’;
+}).join(’’);
+} catch(e) { console.error(e); }
 }
 
-// ── UI helpers ─────────────────────────────────────────────
 function selectRole(el) {
-  document.querySelectorAll('.role-pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  currentRole = el.dataset.role;
-  loadJobs();
+document.querySelectorAll(’.role-btn’).forEach(function(p) { p.classList.remove(‘active’); });
+el.classList.add(‘active’);
+currentRole = el.dataset.role;
+loadJobs();
 }
 
-function toggleFilter(el) {
-  el.classList.toggle('on');
-  renderJobs();
-}
+function toggleFilter(el) { el.classList.toggle(‘on’); renderJobs(); }
 
 function debounceSearch() {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(renderJobs, 300);
-}
-
-function showLoading() {
-  document.getElementById('jobsGrid').innerHTML =
-    `<div class="loading" style="grid-column:1/-1">
-       <div class="spinner"></div>
-       <p>Finding live openings for you…</p>
-     </div>`;
-  document.getElementById('countDisplay').textContent = '…';
-}
-
-function showError(msg) {
-  document.getElementById('jobsGrid').innerHTML =
-    `<div class="error-box" style="grid-column:1/-1">
-       ⚠️ Could not load jobs: <strong>${escHtml(msg)}</strong><br><br>
-       Make sure your server is running and your <code>RAPIDAPI_KEY</code> is set in the <code>.env</code> file.
-     </div>`;
-}
-
-function escHtml(str) {
-  return String(str || '').replace(/[&<>"']/g, m =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])
-  );
+clearTimeout(searchTimer);
+searchTimer = setTimeout(renderJobs, 300);
 }
 </script>
+
 </body>
 </html>
