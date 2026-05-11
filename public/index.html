@@ -161,98 +161,33 @@ footer{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-
 <div class="wrap">Wings Forward - Community resource for Spirit Airlines employees - Jobs pulled live from 1000+ job sites</div>
 </footer>
 <script>
-var allJobs = [];
-var currentRole = 'flight-attendant';
-var searchTimer = null;
-
-document.addEventListener('DOMContentLoaded', function() {
-loadAirlineDirectory();
-loadJobs();
-});
-
-function loadJobs() {
-var role = currentRole;
-var location = document.getElementById("locationSelect").value;
-document.getElementById(‘jobsGrid’).innerHTML = ‘<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings…</p></div>’;
-document.getElementById(‘countDisplay’).textContent = ‘…’;
-fetch('/api/jobs?role=' + role + ‘&location=’ + encodeURIComponent(location))
-.then(function(res) { return res.json(); })
-.then(function(data) {
-if (data.error) throw new Error(data.error);
-allJobs = data.jobs || [];
-document.getElementById(‘totalJobs’).textContent = allJobs.length + ‘+’;
-renderJobs();
-})
-.catch(function(err) {
-document.getElementById(‘jobsGrid’).innerHTML = ’<div style="grid-column:1/-1;color:#FF5C5C;padding:20px;background:rgba(255,92,92,.08);border-radius:12px;">Could not load jobs: ’ + err.message + ‘</div>’;
-});
+<script>
+var allJobs=[];
+var currentRole="flight-attendant";
+var searchTimer=null;
+document.addEventListener("DOMContentLoaded",function(){loadAirlineDirectory();loadJobs();});
+function loadJobs(){
+var role=currentRole;
+var location=document.getElementById("locationSelect").value;
+document.getElementById("jobsGrid").innerHTML="<div class=loading style=grid-column:1/-1><div class=spinner></div><p>Finding live openings...</p></div>";
+document.getElementById("countDisplay").textContent="...";
+fetch("/api/jobs?role="+role+"&location="+encodeURIComponent(location)).then(function(r){return r.json();}).then(function(d){if(d.error)throw new Error(d.error);allJobs=d.jobs||[];document.getElementById("totalJobs").textContent=allJobs.length+"+";renderJobs();}).catch(function(e){document.getElementById("jobsGrid").innerHTML="<div style=grid-column:1/-1;color:#FF5C5C;padding:20px>Error: "+e.message+"</div>";});
 }
-
-function renderJobs() {
-var grid = document.getElementById(‘jobsGrid’);
-var s = document.getElementById(‘searchInput’).value.toLowerCase();
-var ao = document.getElementById(‘airlineOnly’).classList.contains(‘on’);
-var ft = document.getElementById(‘fullTimeOnly’).classList.contains(‘on’);
-var jobs = allJobs.slice();
-
-if (s) jobs = jobs.filter(function(j) {
-return (j.title + ’ ’ + j.employer + ’ ’ + (j.location || ‘’)).toLowerCase().indexOf(s) !== -1;
-});
-if (ao) jobs = jobs.filter(function(j) { return j.isAirline; });
-if (ft) jobs = jobs.filter(function(j) { return (j.type || ‘’).toLowerCase().indexOf(‘full’) !== -1; });
-
-document.getElementById(‘countDisplay’).textContent = jobs.length;
-
-if (!jobs.length) {
-grid.innerHTML = ‘<div class="loading" style="grid-column:1/-1"><p style="color:#6B7FA3">No matching jobs found.</p></div>’;
-return;
+function renderJobs(){
+var grid=document.getElementById("jobsGrid");
+var s=document.getElementById("searchInput").value.toLowerCase();
+var ao=document.getElementById("airlineOnly").classList.contains("on");
+var ft=document.getElementById("fullTimeOnly").classList.contains("on");
+var jobs=allJobs.slice();
+if(s)jobs=jobs.filter(function(j){return(j.title+" "+j.employer+" "+(j.location||"")).toLowerCase().indexOf(s)!==-1;});
+if(ao)jobs=jobs.filter(function(j){return j.isAirline;});
+if(ft)jobs=jobs.filter(function(j){return(j.type||"").toLowerCase().indexOf("full")!==-1;});
+document.getElementById("countDisplay").textContent=jobs.length;
+if(!jobs.length){grid.innerHTML="<div style=grid-column:1/-1;text-align:center;padding:40px;color:#6B7FA3>No jobs found.</div>";return;}
+grid.innerHTML=jobs.map(function(j){return "<div class=job-card><div class=card-top><div class=airline-info><div class=airline-icon>A</div><div><div class=aname>"+j.employer+"</div><div class=atype>Airline / Aviation</div></div></div>"+(j.isAirline?"<span class=match-badge>Airline Match</span>":"")+"</div><div class=job-title>"+j.title+"</div><div class=job-meta>"+(j.location?"<span class=meta>"+j.location+"</span>":"")+(j.salary?"<span class=meta>"+j.salary+"</span>":"")+"<span class=meta>"+(j.type||"Full-time")+"</span></div><div class=tags><span class=tag>Aviation</span></div><div class=card-foot><span class=posted>"+(j.posted||"Recently")+"</span><a href="+(j.applyUrl||"#")+" target=_blank class=apply-btn>Apply Now</a></div></div>";}).join("");
 }
-
-grid.innerHTML = jobs.map(function(job) {
-var match = job.isAirline ? ‘<span class="match-badge">Airline Match</span>’ : ‘’;
-var salary = job.salary ? ‘<span class="meta">’ + job.salary + ‘</span>’ : ‘’;
-var loc = job.location ? ‘<span class="meta">’ + job.location + ‘</span>’ : ‘’;
-return ‘<div class="job-card">’ +
-‘<div class="card-top">’ +
-‘<div class="airline-info">’ +
-‘<div class="airline-icon">A</div>’ +
-‘<div><div class="aname">’ + (job.employer || ‘’) + ‘</div><div class="atype">Airline / Aviation</div></div>’ +
-‘</div>’ + match + ‘</div>’ +
-‘<div class="job-title">’ + (job.title || ‘’) + ‘</div>’ +
-‘<div class="job-meta">’ + loc + salary + ‘<span class="meta">’ + (job.type || ‘Full-time’) + ‘</span></div>’ +
-‘<div class="tags"><span class="tag">Aviation Experience</span></div>’ +
-‘<div class="card-foot">’ +
-‘<span class="posted">’ + (job.posted || ‘Recently’) + ‘</span>’ +
-‘<a href="' + (job.applyUrl || '#') + '" target="_blank" class="apply-btn">Apply Now</a>’ +
-‘</div></div>’;
-}).join(’’);
-}
-
-function loadAirlineDirectory() {
-fetch(’/api/airlines’)
-.then(function(res) { return res.json(); })
-.then(function(data) {
-document.getElementById(‘dirGrid’).innerHTML = data.map(function(a) {
-return ‘<a href="' + a.url + '" target="_blank" class="dir-card"><span class="dir-name">’ + a.name + ‘</span><span>-></span></a>’;
-}).join(’’);
-})
-.catch(function(e) { console.error(e); });
-}
-
-function selectRole(el) {
-document.querySelectorAll(’.role-btn’).forEach(function(p) { p.classList.remove(‘active’); });
-el.classList.add(‘active’);
-currentRole = el.dataset.role;
-loadJobs();
-}
-
-function toggleFilter(el) { el.classList.toggle(‘on’); renderJobs(); }
-
-function debounceSearch() {
-clearTimeout(searchTimer);
-searchTimer = setTimeout(renderJobs, 300);
-}
+function loadAirlineDirectory(){fetch("/api/airlines").then(function(r){return r.json();}).then(function(d){document.getElementById("dirGrid").innerHTML=d.map(function(a){return "<a href="+a.url+" target=_blank class=dir-card><span class=dir-name>"+a.name+"</span><span>-></span></a>";}).join("");}).catch(function(e){console.error(e);});}
+function selectRole(el){document.querySelectorAll(".role-btn").forEach(function(p){p.classList.remove("active");});el.classList.add("active");currentRole=el.dataset.role;loadJobs();}
+function toggleFilter(el){el.classList.toggle("on");renderJobs();}
+function debounceSearch(){clearTimeout(searchTimer);searchTimer=setTimeout(renderJobs,300);}
 </script>
-
-</body>
-</html>
