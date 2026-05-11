@@ -8,7 +8,6 @@ app.use(express.json());
 app.use(express.static("public"));
 var JOOBLE_API_KEY = process.env.JOOBLE_API_KEY;
 var PORT = process.env.PORT || 3000;
-app.listen(PORT, function() { console.log("Running on port " + PORT); });
 app.get("/api/jobs", async function(req, res) {
 var role = req.query.role || "flight-attendant";
 var location = req.query.location || "United States";
@@ -57,3 +56,4 @@ app.get("/api/airlines", function(req, res) {
     { name: "GoJet Airlines", url: "https://www.gojetairlines.com/careers" }
   ]);
 });
+app.listen(PORT, function() { console.log("Running on port " + PORT); });
