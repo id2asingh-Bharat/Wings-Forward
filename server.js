@@ -42,20 +42,20 @@ app.get("/api/airlines", function(req, res) {
     { name: "American Airlines", url: "https://jobs.aa.com/search-jobs" },
     { name: "Delta Air Lines", url: "https://delta.avature.net/en_US/careers" },
     { name: "United Airlines", url: "https://careers.united.com/us/en" },
-    { name: "Southwest Airlines", url: "https://careers.southwestairlines.com/careers" },
+    { name: "Southwest Airlines", url: "https://careers.southwestair.com/us/en/" },
     { name: "JetBlue", url: "https://careers.jetblue.com" },
-    { name: "Alaska Airlines", url: "https://jobs.alaskaair.com" },
-    { name: "Frontier Airlines", url: "https://jobs.flyfrontier.com" },
-    { name: "Allegiant Air", url: "https://jobs.allegiantair.com" },
-    { name: "Sun Country", url: "https://www.suncountry.com/about/careers" },
-    { name: "Hawaiian Airlines", url: "https://careers.hawaiianairlines.com" },
-    { name: "Breeze Airways", url: "https://www.flybreeze.com/careers" },
-    { name: "SkyWest Airlines", url: "https://www.skywest.com/about-skywest/careers" },
-    { name: "Republic Airways", url: "https://www.republicairways.com/careers" },
+    { name: "Alaska Airlines", url: "https://careers.alaskaair.com/" },
+    { name: "Frontier Airlines", url: "https://www.flyfrontier.com/Careers" },
+    { name: "Allegiant Air", url: "https://www.allegiantair.jobs/see-all-jobs/" },
+    { name: "Sun Country", url: "https://careers.suncountry.com/" },
+    { name: "Hawaiian Airlines", url: "https://careers.alaskaair.com/hawaiian-airlines/" },
+    { name: "Breeze Airways", url: "https://jobs.flybreeze.com/" },
+    { name: "SkyWest Airlines", url: "https://www.skywest.com/skywest-airline-jobs/" },
+    { name: "Republic Airways", url: "https://rjet.com/careers/" },
     { name: "Envoy Air", url: "https://envoyair.com/careers" },
     { name: "PSA Airlines", url: "https://www.psaairlines.com/careers" },
     { name: "Piedmont Airlines", url: "https://www.piedmont-airlines.com/careers" },
-    { name: "GoJet Airlines", url: "https://www.gojetairlines.com/careers" }
+    { name: "GoJet Airlines", url: "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?cid=a7828c0b-d30d-40a2-a3ee-61c80628985c&ccId=19000101_000001&lang=en_US" }
   ]);
 });
 app.listen(PORT, function() { console.log("Running on port " + PORT); });
