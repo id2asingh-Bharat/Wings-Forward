@@ -248,6 +248,21 @@ function toggleFilter(el) { el.classList.toggle(‘on’); renderJobs(); }
 function debounceSearch() {
 clearTimeout(searchTimer);
 searchTimer = setTimeout(renderJobs, 300);
+  async function loadJobs(){
+var role=currentRole;
+var location=document.getElementById('locationSelect').value;
+document.getElementById('jobsGrid').innerHTML='<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings...</p></div>';
+document.getElementById('countDisplay').textContent='...';
+try{
+var res=await fetch('/api/jobs?role='+role+'&location='+encodeURIComponent(location));
+var data=await res.json();
+if(data.error)throw new Error(data.error);
+allJobs=data.jobs||[];
+document.getElementById('totalJobs').textContent=allJobs.length+'+';
+renderJobs();
+}catch(err){
+document.getElementById('jobsGrid').innerHTML='<div style="grid-column:1/-1;color:#FF5C5C;padding:20px">Could not load jobs: '+err.message+'</div>';
+}}
 }
 </script>
 
