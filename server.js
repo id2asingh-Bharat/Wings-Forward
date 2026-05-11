@@ -20,7 +20,7 @@ body: JSON.stringify({ keywords: role, location: location, page: "1", ResultOnPa
     });
 var data = await response.json();
 if (!data.jobs) { return res.status(502).json({ error: "No jobs" }); }
-res.json({ jobs: data.jobs.map(function(j){ return { title: j.title, employer: j.company||"Aviation", location: j.location||"", type: j.type||"Full-time", salary: j.salary||"", posted: j.updated||"", applyUrl: j.link, isAirline: true }; }), total: data.jobs.length });
+res.json({ jobs: data.jobs.map(function(j){ return { title: j.title, employer: j.company||"Aviation", location: j.location||"", type: j.type||"Full-time", salary: j.salary||"", posted: j.updated||"", applyUrl: j.link, isAirline: ["american","delta","united","southwest","jetblue","alaska","frontier","allegiant","avelo","hawaiian","breeze","skywest","envoy","republic","psa","piedmont","gojet"].some(function(a){return(j.company||"").toLowerCase().indexOf(a)!==-1;}) }; }), total: data.jobs.length });
   } catch(err) { res.status(500).json({ error: err.message }); }
 });
 app.get("/api/jobs", async function(req, res) {
@@ -31,7 +31,7 @@ app.get("/api/jobs", async function(req, res) {
     var response = await fetch("https://jooble.org/api/" + JOOBLE_API_KEY, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ keywords: role, location: location, page: "1", ResultOnPage: 20 }) });
     var data = await response.json();
     if (!data.jobs) { return res.status(502).json({ error: "No jobs" }); }
-res.json({ jobs: data.jobs.map(function(j){ return { title: j.title, employer: j.company||"Aviation", location: j.location||"", type: j.type||"Full-time", salary: j.salary||"", posted: j.updated||"", applyUrl: j.link, isAirline: true }; }), total: data.jobs.length });
+res.json({ jobs: data.jobs.map(function(j){ return { title: j.title, employer: j.company||"Aviation", location: j.location||"", type: j.type||"Full-time", salary: j.salary||"", posted: j.updated||"", applyUrl: j.link, isAirline: ["american","delta","united","southwest","jetblue","alaska","frontier","allegiant","avelo","hawaiian","breeze","skywest","envoy","republic","psa","piedmont","gojet"].some(function(a){return(j.company||"").toLowerCase().indexOf(a)!==-1;}) }; }), total: data.jobs.length });
   } catch(err) { res.status(500).json({ error: err.message }); }
 });
 
