@@ -55,15 +55,13 @@ header{padding:22px 0;border-bottom:1px solid var(--border);position:sticky;top:
 .tag{background:rgba(75,159,225,.08);border:1px solid rgba(75,159,225,.18);color:var(--sky);font-size:11px;padding:3px 10px;border-radius:100px;}
 .card-foot{display:flex;justify-content:space-between;align-items:center;padding-top:14px;border-top:1px solid var(--border);}
 .posted{font-size:11px;color:var(--muted);}
-.apply-btn{background:var(--sky);color:#000;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;}
+.apply-btn{background:var(--sky);color:#000;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;display:inline-block;}
 .loading{text-align:center;padding:80px 20px;}
 .spinner{width:42px;height:42px;border:3px solid var(--border);border-top-color:var(--sky);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.error{background:rgba(255,92,92,.08);border:1px solid rgba(255,92,92,.2);border-radius:12px;padding:20px;color:#FF5C5C;margin:20px 0;}
 .dir-section{padding:32px 0;}
 .dir-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
 .dir-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;text-decoration:none;display:flex;align-items:center;justify-content:space-between;color:var(--white);}
-.dir-card:hover{border-color:rgba(75,159,225,0.4);}
 .dir-name{font-size:13px;font-weight:500;}
 .strip{background:rgba(255,222,0,.06);border:1px solid rgba(255,222,0,.15);border-radius:18px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:8px 0 32px;flex-wrap:wrap;}
 .strip h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-bottom:4px;}
@@ -172,21 +170,23 @@ loadAirlineDirectory();
 loadJobs();
 });
 
-async function loadJobs() {
+function loadJobs() {
 var role = currentRole;
 var location = document.getElementById(‘locationSelect’).value;
 document.getElementById(‘jobsGrid’).innerHTML = ‘<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings…</p></div>’;
 document.getElementById(‘countDisplay’).textContent = ‘…’;
-try {
-var res = await fetch(’/api/jobs?role=’ + role + ‘&location=’ + encodeURIComponent(location));
-var data = await res.json();
+
+fetch(’/api/jobs?role=’ + role + ‘&location=’ + encodeURIComponent(location))
+.then(function(res) { return res.json(); })
+.then(function(data) {
 if (data.error) throw new Error(data.error);
 allJobs = data.jobs || [];
 document.getElementById(‘totalJobs’).textContent = allJobs.length + ‘+’;
 renderJobs();
-} catch(err) {
-document.getElementById(‘jobsGrid’).innerHTML = ’<div class="error" style="grid-column:1/-1">Could not load jobs: ’ + err.message + ‘</div>’;
-}
+})
+.catch(function(err) {
+document.getElementById(‘jobsGrid’).innerHTML = ’<div style="grid-column:1/-1;color:#FF5C5C;padding:20px;background:rgba(255,92,92,.08);border-radius:12px;">Could not load jobs: ’ + err.message + ‘</div>’;
+});
 }
 
 function renderJobs() {
@@ -195,45 +195,49 @@ var s = document.getElementById(‘searchInput’).value.toLowerCase();
 var ao = document.getElementById(‘airlineOnly’).classList.contains(‘on’);
 var ft = document.getElementById(‘fullTimeOnly’).classList.contains(‘on’);
 var jobs = allJobs.slice();
-if (s) jobs = jobs.filter(function(j) { return (j.title + ’ ’ + j.employer + ’ ’ + (j.location||’’)).toLowerCase().indexOf(s) !== -1; });
+
+if (s) jobs = jobs.filter(function(j) {
+return (j.title + ’ ’ + j.employer + ’ ’ + (j.location || ‘’)).toLowerCase().indexOf(s) !== -1;
+});
 if (ao) jobs = jobs.filter(function(j) { return j.isAirline; });
-if (ft) jobs = jobs.filter(function(j) { return (j.type||’’).toLowerCase().indexOf(‘full’) !== -1; });
+if (ft) jobs = jobs.filter(function(j) { return (j.type || ‘’).toLowerCase().indexOf(‘full’) !== -1; });
+
 document.getElementById(‘countDisplay’).textContent = jobs.length;
+
 if (!jobs.length) {
 grid.innerHTML = ‘<div class="loading" style="grid-column:1/-1"><p style="color:#6B7FA3">No matching jobs found.</p></div>’;
 return;
 }
+
 grid.innerHTML = jobs.map(function(job) {
 var match = job.isAirline ? ‘<span class="match-badge">Airline Match</span>’ : ‘’;
 var salary = job.salary ? ‘<span class="meta">’ + job.salary + ‘</span>’ : ‘’;
+var loc = job.location ? ‘<span class="meta">’ + job.location + ‘</span>’ : ‘’;
 return ‘<div class="job-card">’ +
 ‘<div class="card-top">’ +
 ‘<div class="airline-info">’ +
 ‘<div class="airline-icon">A</div>’ +
-‘<div><div class="aname">’ + (job.employer||’’) + ‘</div><div class="atype">Airline / Aviation</div></div>’ +
+‘<div><div class="aname">’ + (job.employer || ‘’) + ‘</div><div class="atype">Airline / Aviation</div></div>’ +
 ‘</div>’ + match + ‘</div>’ +
-‘<div class="job-title">’ + (job.title||’’) + ‘</div>’ +
-‘<div class="job-meta">’ +
-(job.location ? ‘<span class="meta">’ + job.location + ‘</span>’ : ‘’) +
-salary +
-‘<span class="meta">’ + (job.type||‘Full-time’) + ‘</span>’ +
-‘</div>’ +
-‘<div class="tags"><span class="tag">Aviation Experience</span><span class="tag">Airline Industry</span></div>’ +
+‘<div class="job-title">’ + (job.title || ‘’) + ‘</div>’ +
+‘<div class="job-meta">’ + loc + salary + ‘<span class="meta">’ + (job.type || ‘Full-time’) + ‘</span></div>’ +
+‘<div class="tags"><span class="tag">Aviation Experience</span></div>’ +
 ‘<div class="card-foot">’ +
-‘<span class="posted">’ + (job.posted||‘Recently’) + ‘</span>’ +
-‘<a href="' + (job.applyUrl||'#') + '" target="_blank" class="apply-btn">Apply Now</a>’ +
+‘<span class="posted">’ + (job.posted || ‘Recently’) + ‘</span>’ +
+‘<a href="' + (job.applyUrl || '#') + '" target="_blank" class="apply-btn">Apply Now</a>’ +
 ‘</div></div>’;
 }).join(’’);
 }
 
-async function loadAirlineDirectory() {
-try {
-var res = await fetch(’/api/airlines’);
-var data = await res.json();
+function loadAirlineDirectory() {
+fetch(’/api/airlines’)
+.then(function(res) { return res.json(); })
+.then(function(data) {
 document.getElementById(‘dirGrid’).innerHTML = data.map(function(a) {
-return ‘<a href="' + a.url + '" target="_blank" class="dir-card"><span class="dir-name">’ + a.name + ‘</span><span>→</span></a>’;
+return ‘<a href="' + a.url + '" target="_blank" class="dir-card"><span class="dir-name">’ + a.name + ‘</span><span>-></span></a>’;
 }).join(’’);
-} catch(e) { console.error(e); }
+})
+.catch(function(e) { console.error(e); });
 }
 
 function selectRole(el) {
@@ -248,21 +252,6 @@ function toggleFilter(el) { el.classList.toggle(‘on’); renderJobs(); }
 function debounceSearch() {
 clearTimeout(searchTimer);
 searchTimer = setTimeout(renderJobs, 300);
-  async function loadJobs(){
-var role=currentRole;
-var location=document.getElementById('locationSelect').value;
-document.getElementById('jobsGrid').innerHTML='<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings...</p></div>';
-document.getElementById('countDisplay').textContent='...';
-try{
-var res=await fetch('/api/jobs?role='+role+'&location='+encodeURIComponent(location));
-var data=await res.json();
-if(data.error)throw new Error(data.error);
-allJobs=data.jobs||[];
-document.getElementById('totalJobs').textContent=allJobs.length+'+';
-renderJobs();
-}catch(err){
-document.getElementById('jobsGrid').innerHTML='<div style="grid-column:1/-1;color:#FF5C5C;padding:20px">Could not load jobs: '+err.message+'</div>';
-}}
 }
 </script>
 
