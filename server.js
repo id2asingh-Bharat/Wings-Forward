@@ -7,16 +7,18 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 var JOOBLE_API_KEY = process.env.JOOBLE_API_KEY;
+var ROLE_QUERIES = {"flight-attendant":"flight attendant airline","pilot":"airline pilot first officer","ramp-agent":"ramp agent ground operations","mechanic":"aircraft mechanic aviation","customer-service":"airport customer service airline","gate-agent":"gate agent airline","cargo":"cargo handler airline","corporate":"airline operations coordinator","facility":"facility maintenance airline airport","it-technology":"IT technology airline aviation","finance":"finance accounting airline","hr-training":"human resources training airline","security":"security officer airline airport","dispatcher":"flight dispatcher airline"};
 var PORT = process.env.PORT || 3000;
 app.get("/api/jobs", async function(req, res) {
 var role = req.query.role || "flight-attendant";
+var keywords = ROLE_QUERIES[role] || role;
 var location = req.query.location || "United States";
 if (!JOOBLE_API_KEY) { return res.status(500).json({ error: "No API key" }); }
 try {
 var response = await fetch("https://jooble.org/api/" + JOOBLE_API_KEY, {
 method: "POST",
 headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ keywords: role, location: location, page: "1", ResultOnPage: 20 })
+body: JSON.stringify({ keywords: keywords, location: location, page: "1", ResultOnPage: 20 })
     });
 var data = await response.json();
 if (!data.jobs) { return res.status(502).json({ error: "No jobs" }); }
