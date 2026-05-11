@@ -165,7 +165,7 @@ var allJobs = [];
 var currentRole = 'flight-attendant';
 var searchTimer = null;
 
-document.addEventListener(‘DOMContentLoaded’, function() {
+document.addEventListener('DOMContentLoaded', function() {
 loadAirlineDirectory();
 loadJobs();
 });
@@ -175,7 +175,6 @@ var role = currentRole;
 var location = document.getElementById(‘locationSelect’).value;
 document.getElementById(‘jobsGrid’).innerHTML = ‘<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p style="color:#6B7FA3">Finding live openings…</p></div>’;
 document.getElementById(‘countDisplay’).textContent = ‘…’;
-
 fetch(’/api/jobs?role=’ + role + ‘&location=’ + encodeURIComponent(location))
 .then(function(res) { return res.json(); })
 .then(function(data) {
