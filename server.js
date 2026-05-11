@@ -44,7 +44,7 @@ app.get("/api/airlines", function(req, res) {
     { name: "United Airlines", url: "https://careers.united.com/us/en" },
     { name: "Southwest Airlines", url: "https://careers.southwestair.com/us/en/" },
     { name: "JetBlue", url: "https://careers.jetblue.com" },
-    { name: "Alaska Airlines", url: "https://careers.alaskaair.com/" },
+    { name: "Alaska Airlines", url: "https://careers.alaskaair.com/jobs/" },
     { name: "Frontier Airlines", url: "https://www.flyfrontier.com/Careers" },
     { name: "Allegiant Air", url: "https://www.allegiantair.jobs/see-all-jobs/" },
     { name: "Sun Country", url: "https://careers.suncountry.com/" },
